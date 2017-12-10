@@ -2,13 +2,13 @@
 // Joel Haker 2014
 // joelhakerdesigns.com
 
-//Includes
+// Includes
 #include <SPI.h>
 #include <Ethernet.h>
 #include <WebServer.h>
 #include <EEPROM.h>
 
-//Pins
+// Pins
 static const int RELAY_ONE = 3;
 static const int RELAY_TWO = 4;
 static const int RELAY_THREE = 5;
@@ -20,7 +20,7 @@ static const int Rly2 = 1;
 static const int Rly3 = 2;
 static const int Rly4 = 3;
 
-//Webserver
+// Webserver
 static uint8_t MAC[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 static uint8_t IP[] = {192, 168, 1, 49};
 WebServer webserver("", 80);
@@ -228,16 +228,18 @@ P(frontEnd) =
 "\n	</body>"
 "\n	</html>";
 
-//Serves web front end to control light from a web browser
-void webUI(WebServer &server, WebServer::ConnectionType type, char *, bool) {
+// Serves web front end to control light from a web browser
+void webUI(WebServer &server, WebServer::ConnectionType type, char *, bool) 
+{
 	server.httpSuccess();
 	if (type == WebServer::GET) {
 		server.printP(frontEnd);
 	}
 }
 
-//Provides back end to control lights from front end and other apps
-void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool) {
+// Provides back end to control lights from front end and other apps
+void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool) 
+{
 	char name[16];
 	char value[16];
 	server.httpSuccess();
@@ -259,24 +261,20 @@ void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool)
 	
 	// Relay 1 handle
 	if (lastSwitchState[Rly1] != switchState[Rly1]) {
-		if (switchState[Rly1] == 1){
+		if (switchState[Rly1] == 1) {
 			digitalWrite(RELAY_ONE, HIGH);
 			lastSwitchState[Rly1] = switchState[Rly1];
-		}
-		else if (switchState[Rly1] == 0){
+		} else if (switchState[Rly1] == 0) {
 			digitalWrite(RELAY_ONE, LOW);
 			lastSwitchState[Rly1] = switchState[Rly1];
-		}
-		else if (switchState[Rly1] == 2){
+		} else if (switchState[Rly1] == 2) {
 			Serial.println("Relay1 = 2");
-		}
-		else {
+		} else {
 			Serial.println("///////////////");
 			Serial.println("Something went wrong with comparing Relay1's values.");
 			Serial.println("///////////////");
 		}
-	}
-	else if (lastSwitchState[Rly1] == switchState[Rly1]) {
+	} else if (lastSwitchState[Rly1] == switchState[Rly1]) {
 		Serial.println("------------");
 		Serial.println("Relay1's values are the same.");
 		Serial.println("----------");
@@ -284,24 +282,20 @@ void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool)
 	
 	// Relay 2 handle
 	if (lastSwitchState[Rly2] != switchState[Rly2]) {
-		if (switchState[Rly2] == 1){
+		if (switchState[Rly2] == 1) {
 			digitalWrite(RELAY_TWO, HIGH);
 			lastSwitchState[Rly2] = switchState[Rly2];
-		}
-		else if (switchState[Rly2] == 0){
+		} else if (switchState[Rly2] == 0) {
 			digitalWrite(RELAY_TWO, LOW);
 			lastSwitchState[Rly2] = switchState[Rly2];
-		}
-		else if (switchState[Rly2] == 2){
+		} else if (switchState[Rly2] == 2) {
 			Serial.println("Relay2 = 2");
-		}
-		else {
+		} else {
 			Serial.println("///////////////");
 			Serial.println("Something went wrong with comparing Relay2's values.");
 			Serial.println("///////////////");
 		}
-	}
-	else if (lastSwitchState[Rly2] == switchState[Rly2]) {
+	} else if (lastSwitchState[Rly2] == switchState[Rly2]) {
 		Serial.println("----------");
 		Serial.println("Relay2's values are the same.");
 		Serial.println("----------");
@@ -309,24 +303,20 @@ void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool)
 	
 	// Relay 3 handle
 	if (lastSwitchState[Rly3] != switchState[Rly3]) {
-		if (switchState[Rly3] == 1){
+		if (switchState[Rly3] == 1) {
 			digitalWrite(RELAY_THREE, HIGH);
 			lastSwitchState[Rly3] = switchState[Rly3];
-		}
-		else if (switchState[Rly3] == 0){
+		} else if (switchState[Rly3] == 0) {
 			digitalWrite(RELAY_THREE, LOW);
 			lastSwitchState[Rly3] = switchState[Rly3];
-		}
-		else if (switchState[Rly3] == 2){
+		} else if (switchState[Rly3] == 2) {
 			Serial.println("Relay3 = 2");
-		}
-		else {
+		} else {
 			Serial.println("///////////////");
 			Serial.println("Something went wrong with comparing Relay3's values.");
 			Serial.println("///////////////");
 		}
-	}
-	else if (lastSwitchState[Rly3] == switchState[Rly3]) {
+	} else if (lastSwitchState[Rly3] == switchState[Rly3]) {
 		Serial.println("----------");
 		Serial.println("Relay3's values are the same.");
 		Serial.println("----------");
@@ -334,26 +324,22 @@ void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool)
 	
 	// Relay 4 handle
 	if (lastSwitchState[Rly4] != switchState[Rly4]) {
-		if (switchState[Rly4] == 1){
+		if (switchState[Rly4] == 1) {
 			digitalWrite(RELAY_FOUR, HIGH);
 			lastSwitchState[Rly4] = switchState[Rly4];
-		}
-		else if (switchState[Rly4] == 0){
+		} else if (switchState[Rly4] == 0) {
 			digitalWrite(RELAY_FOUR, LOW);
 			lastSwitchState[Rly4] = switchState[Rly4];
-		}
-		else if (switchState[Rly4] == 2){
+		} else if (switchState[Rly4] == 2) {
 			Serial.println("*********************");
 			Serial.println("Relay4 = 2");
 			Serial.println("*********************");
-		}
-		else {
+		} else {
 			Serial.println("///////////////");
 			Serial.println("Something went wrong with comparing Relay4's values.");
 			Serial.println("///////////////");
 		}
-	}
-	else if (lastSwitchState[Rly4] == switchState[Rly4]) {
+	} else if (lastSwitchState[Rly4] == switchState[Rly4]) {
 		Serial.println("------------");
 		Serial.println("Relay4's values are the same.");
 		Serial.println("----------");
@@ -362,7 +348,6 @@ void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool)
 	if((type == WebServer::POST) || (type == WebServer::GET)) {
 		server.println("<?xml version='1.0' encoding='UTF-8'?>");
 		server.println("<xml>");
-		
 		server.println("<currentSwitchState>");
 		server.print("<sw1>");
 		server.print(lastSwitchState[Rly1]);
@@ -377,12 +362,12 @@ void webBackend(WebServer &server, WebServer::ConnectionType type, char *, bool)
 		server.print(lastSwitchState[Rly4]);
 		server.println("</sw4>");
 		server.println("</currentSwitchState>");
-		
 		server.println("</xml>");
 	}
 }
 
-void setup() {
+void setup() 
+{
 	Serial.begin(115200);
 	
 	pinMode(13, OUTPUT);
@@ -406,10 +391,9 @@ void setup() {
 	webserver.begin();
 }
 
-void loop() {
+void loop() 
+{
 	char buff[64];
 	int len = 64;
 	webserver.processConnection(buff, &len);
 }
-
-
